@@ -6,7 +6,7 @@
     "layer": [
       {
         "data": {
-          "url": "us.json",
+          "url": "https://github.com/dvek0001/FIT3179/blob/main/js/us.json",
           "format": {
             "type": "topojson",
             "feature": "us.geo"
@@ -23,7 +23,7 @@
       },
       {
         "data": {
-          "url": "data/airports.csv"
+          "url": "https://github.com/dvek0001/FIT3179/blob/main/data/airports.csv"
         },
         "projection": {
           "type": "albersUsa"
@@ -44,7 +44,7 @@
       },
       {
         "data": {
-          "url": "data/flights_new.csv"
+          "url": "https://github.com/dvek0001/FIT3179/blob/main/data/flights_new.csv"
         },
         "transform": [
           {"filter": {"field": "ORIGIN_AIRPORT", "equal": "ATL"}},
@@ -52,7 +52,7 @@
             "lookup": "ORIGIN_AIRPORT",
             "from": {
               "data": {
-                "url": "data/airports.csv"
+                "url": "https://github.com/dvek0001/FIT3179/blob/main/data/airports.csv"
               },
               "key": "IATA_CODE",
               "fields": ["LATITUDE", "LONGITUDE"]
@@ -63,7 +63,7 @@
             "lookup": "DESTINATION_AIRPORT",
             "from": {
               "data": {
-                "url": "data/airports.csv"
+                "url": "https://github.com/dvek0001/FIT3179/blob/main/data/airports.csv"
               },
               "key": "IATA_CODE",
               "fields": ["LATITUDE", "LONGITUDE"]
