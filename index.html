@@ -1,67 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>My First HTML Document</title>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+  
+  
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+  
 </head>
 <body>
-    <h1>1. Introduction to HTML. (Level 1)</h1>
-    <h2>1.1 Creating Paragraphs (Level 2)</h2>
-    <p>Unit: FIT3179 Data visualization.</p>
-    <p>This is a paragraph about paragraphs.</p>
+  
+<div id="flow_map"></div>
 
-    <h2>1.2 Creating Tables (Level 2)</h2>
-    <h3>1.2.1 Table Rows (Level 3)</h3>
-    <p>This is a third paragraph about table rows</p>
+<script type="text/javascript">
 
-    <h3>1.2.2 Table Columns (Level 3)</h3>
-    <p>This is a paragraph about table columns.</p>
+  var spec2 = "js/departdelay.vg.json";
+  vegaEmbed('#flow_map', spec2).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+</script>
 
-    <table border="1" cellpadding="10%">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Grade</th>
-        </tr>
-
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>HD</td>
-        </tr>
-
-        <tr>
-            <td>Jill</td>
-            <td>Jackson</td>
-            <td>D</td>
-        </tr>
-
-        <tr>
-            <td>Jane</td>
-            <td>Smith</td>
-            <td>C</td>
-        </tr>
-    </table>
-
-    <h2>1.3 Embedding Images(Level 2)</h2>
-    <p>This is the fourth paragraph about images in HTML.</p>
-
-    <img src="leopard.jpg"/>
-
-    <h2>1.4 Creating Hyperlinks in HTML</h2>
-    <a href="https://www.monash.edu/">
-        Click here to view the Monash website.
-    </a>
-
-    <h2>1.5 Creating Sections in HTML</h2>
-
-     <div style="color: red;">
-        <h2>Heading of first group</h2>
-        <p>This paragraph is in 1st group</p>
-     </div>
-
-     <div style="color: green;">
-        <h2>Heading of second group</h2>
-        <p>This paragraph is in 2nd group.</p>
-     </div>
 </body>
 </html>
