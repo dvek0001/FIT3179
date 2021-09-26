@@ -87,7 +87,7 @@
         "latitude2": {"field": "DESTINATION_LATITUDE"},
         "longitude2": {"field": "DESTINATION_LONGITUDE"},
         "color": {"field": "DEPARTURE_DELAY", "type": "quantitative", 
-      "aggregate": "average", "scale": {"domainMid": 0, "range": "diverging"}},
+      "aggregate": "average"},
         "size": {"field": "DEPARTURE_DELAY", "type": "quantitative", 
         "aggregate": "average"}
             }
