@@ -1,0 +1,154 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "height": 400,
+    "width": 600,
+    "data": {
+      "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
+    },
+    "transform": [
+      {
+        "lookup": "AIRLINE",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
+          },
+          "key": "IATA_CODE",
+          "fields": ["IATA_CODE","AIRLINE"]
+        },
+        "as": ["IATA_CODE","AIRLINE"]
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "MONTH", 
+        "type": "ordinal", 
+        "scale": {
+            "domain" : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        },
+        "sort": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      },
+      "y": {
+        "field": "rank", 
+        "type": "ordinal", 
+        "sort": ["1","2","3","4","5","6","7","8","9","10","11"]
+      }
+    },
+    "layer": [
+      {
+        "selection": {
+          "airline_select": {
+            "type": "multi",
+            "fields": ["AIRLINE"],
+            "bind": "legend"
+          }
+        },
+        "mark": {"type": "line", "point": true},
+        "encoding": {
+          "color": {
+            "field": "AIRLINE", 
+            "type": "nominal",
+            "scale": {
+                "range": [
+                    "#68023F", "#008169", "#EF0096", "#00DCB5",
+                    "#003C86", "#9400E6", "#009FFA", "#FF71FD",
+                    "#FF6E3A", "#F60239", "#FFDC3D"
+                ]
+            }
+          },
+          "opacity": {
+            "condition": {"selection": "airline_select", "value": 2},
+            "value": 0.1
+          },
+          "tooltip": [
+            {"field": "AIRLINE", "type": "nominal"},
+            {"field": "AVG_DEPARTURE_DELAY", "type": "quantitative", "format": ".2f"}
+          ]
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "bottom",
+          "dx": -21,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"field": "IATA_CODE", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'January'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "bottom",
+          "dx": 21,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"field": "IATA_CODE", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'December'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "bottom",
+          "dx": 21,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"field": "IATA_CODE", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'November' & datum['IATA_CODE'] == 'MQ'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "bottom",
+          "dx": 21,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"field": "IATA_CODE", "type": "nominal"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'June' & datum['IATA_CODE'] == 'US'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      }
+    ]
+  }
+  

@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 600,
-  "height": 400,
+  "width": 800,
+  "height": 600,
   "title": "Average Departure Delay from ATL",
   "layer": [
     {
@@ -28,7 +28,7 @@
       "projection": {
         "type": "albersUsa"
       },
-      "mark": "circle",
+      "mark": {"type":"circle", "size": 15},
       "encoding": {
         "longitude": {
           "field": "LONGITUDE",
@@ -38,8 +38,13 @@
           "field": "LATITUDE",
           "type": "quantitative"
         },
-        "size": {"value": 5},
-        "color": {"value": "gray"}
+        "color": {"value": "gray"},
+        "tooltip": [
+          {"field": "IATA_CODE", "type": "nominal"},
+          {"field": "AIRPORT", "type": "nominal"},
+          {"field": "CITY", "type": "nominal"},
+          {"field": "STATE", "type": "nominal"}
+        ]
       }
     },
     {
@@ -74,7 +79,7 @@
       "projection": {
         "type": "albersUsa"
       },
-      "mark": "rule",
+      "mark": {"type": "rule", "size": 2.5},
       "encoding": {
         "longitude": {
           "field": "ORIGIN_LONGITUDE",
@@ -86,11 +91,12 @@
         },
         "latitude2": {"field": "DESTINATION_LATITUDE"},
         "longitude2": {"field": "DESTINATION_LONGITUDE"},
-        "color": {"field": "DEPARTURE_DELAY", "type": "quantitative", 
-      "aggregate": "average"},
-        "size": {"field": "DEPARTURE_DELAY", "type": "quantitative", 
-        "aggregate": "average"}
-            }
+        "color": {
+          "field": "DEPARTURE_DELAY", 
+          "type": "quantitative",
+          "aggregate": "average"
+        }
+      }
     }
   ]
 }

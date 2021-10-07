@@ -1,0 +1,47 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": { "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights.csv"},
+    "height": {"step": 10},
+    "width": 600,
+    "transform": [
+        {
+            "lookup": "AIRLINE",
+            "from": {
+                "data": {
+                    "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
+                },
+                "key": "IATA_CODE",
+                "fields": ["AIRLINE"]
+            },
+            "as": ["AIRLINE"]
+        },
+        {"fold": ["DEPARTURE_DELAY", "ARRIVAL_DELAY"]}
+    ],
+    "mark": {"type":"bar", "size": 8},
+    "encoding": {
+      "row": {
+        "field": "AIRLINE", 
+        "type": "nominal",
+        "spacing": 5,
+        "header": {"labelOrient": "left", "labelAngle": 0, "labelAlign": "left"}
+      },
+      "x": {
+        "aggregate": "average", 
+        "field": "value",
+        "title": "DELAY",
+        "axis": {"grid": false}
+      },
+      "y": {
+        "field": "key",
+        "axis": null
+      },
+      "color": {
+        "field": "key",
+        "scale": {"range": ["#7570B3", "#D95F02"]},
+        "title": null
+      }
+    },
+    "config": {
+      "view": {"stroke": "transparent"}
+    }
+}
