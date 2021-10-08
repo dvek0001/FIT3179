@@ -1,4 +1,11 @@
-#flow_map {
+#depart_flow_map {
+	top:100px;
+	bottom: 100px; 
+	left: 100px;
+	right: 100px;
+}
+
+#bump {
 	top:100px;
 	bottom: 100px; 
 	left: 100px;
