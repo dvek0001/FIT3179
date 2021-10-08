@@ -13,15 +13,25 @@
 </head>
 <body>
   
-<div id="flow_map"></div>
+<div id="depart_flow_map"></div>
+
+<div id="bump"></div>
+
+
 
 <script type="text/javascript">
 
-  var spec2 = "js/departdelay.vg.json";
-  vegaEmbed('#flow_map', spec2).then(function(result) {
+  var vis1 = "js/departdelay.vg.json";
+  var vis3 = "js/bump.vg.json";
+  vegaEmbed('#depart_flow_map', vis1).then(function(result) {
+    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+  }).catch(console.error);
+
+  vegaEmbed('#bump', vis3).then(function(result) {
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
   }).catch(console.error);
 </script>
+
 
 </body>
 </html>
