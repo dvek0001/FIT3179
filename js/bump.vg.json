@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "height": 400,
-    "width": 600,
+    "width": 800,
     "data": {
       "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
     },
@@ -30,7 +30,9 @@
       "y": {
         "field": "rank", 
         "type": "ordinal", 
-        "sort": ["1","2","3","4","5","6","7","8","9","10","11"]
+        "sort": ["1","2","3","4","5","6","7","8","9","10","11"],
+        "title": null,
+        "axis": null
       }
     },
     "layer": [
@@ -42,7 +44,7 @@
             "bind": "legend"
           }
         },
-        "mark": {"type": "line", "point": true},
+        "mark": {"type": "line", "point": true, "size": 2},
         "encoding": {
           "color": {
             "field": "AIRLINE", 
@@ -143,6 +145,48 @@
           "opacity": {
             "condition": {
               "test": "datum['MONTH'] == 'June' & datum['IATA_CODE'] == 'US'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "bottom",
+          "dx": -110,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"value": "Most Delayed"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'January' & datum['IATA_CODE'] == 'MQ'",
+              "value": 1
+            },
+            "value": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "bottom",
+          "dx": -110,
+          "dy": 5,
+          "fontSize": 11.5
+        },
+        "encoding": {
+          "text": {"value": "Least Delayed"},
+          "color": {"value": "black"},
+          "opacity": {
+            "condition": {
+              "test": "datum['MONTH'] == 'January' & datum['IATA_CODE'] == 'US'",
               "value": 1
             },
             "value": 0
