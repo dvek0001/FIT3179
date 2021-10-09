@@ -1,13 +1,13 @@
 #depart_flow_map {
-	top:100px;
-	bottom: 100px; 
-	left: 100px;
-	right: 100px;
+	top:10;
+	bottom: 10; 
+	left: 10px;
+	right: 10px;
 }
 
 #bump {
-	top:100px;
-	bottom: 100px; 
-	left: 100px;
-	right: 100px;
+	top:10px;
+	bottom: 10px; 
+	left: 10px;
+	right: 10px;
 }
