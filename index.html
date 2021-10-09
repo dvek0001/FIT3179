@@ -13,24 +13,28 @@
 </head>
 <body>
   
-<div id="depart_flow_map"></div>
+  <h1>Week 10 Homework</h1>
+  <h3>Map from week 9 homework</h3>
+  
+  <div id="depart_flow_map"></div>
 
-<div id="bump"></div>
+  <h3>Interactive bump chart</h3>
+  <div id="bump"></div>
 
 
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
-  var vis1 = "js/departdelay.vg.json";
-  var vis3 = "js/bump.vg.json";
-  vegaEmbed('#depart_flow_map', vis1).then(function(result) {
-    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-  }).catch(console.error);
+    var vis1 = "js/departdelay.vg.json";
+    var vis3 = "js/bump.vg.json";
+    vegaEmbed('#depart_flow_map', vis1).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
 
-  vegaEmbed('#bump', vis3).then(function(result) {
-    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-  }).catch(console.error);
-</script>
+    vegaEmbed('#bump', vis3).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
 
 
 </body>
