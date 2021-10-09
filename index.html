@@ -27,11 +27,11 @@
 
     var vis1 = "js/departdelay.vg.json";
     var vis3 = "js/bump.vg.json";
-    vegaEmbed('#depart_flow_map', vis1).then(function(result) {
+    vegaEmbed('#depart_flow_map', vis1, {"actions": false}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 
-    vegaEmbed('#bump', vis3).then(function(result) {
+    vegaEmbed('#bump', vis3, {"actions": false}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
   </script>
