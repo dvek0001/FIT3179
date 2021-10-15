@@ -7,7 +7,7 @@
       "width": 500,
       "title": {"text": "Most Delayed Airlines During Departure", "color": "#7570B3", "fontSize": 25},
       "data": {
-        "url": "data/flights_bump.csv"
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
       },
       "transform": [
         {"filter": {"field": "DELAY_TYPE", "equal": "DEPARTURE_DELAY"}},
@@ -15,7 +15,7 @@
           "lookup": "AIRLINE",
           "from": {
             "data": {
-              "url": "data/airlines.csv"
+              "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
             },
             "key": "IATA_CODE",
             "fields": ["IATA_CODE","AIRLINE"]
@@ -213,7 +213,7 @@
       "width": 500,
       "title": {"text": "Most Delayed Airlines During Arrival", "color": "#D95F02", "fontSize": 25},
       "data": {
-        "url": "data/flights_bump.csv"
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
       },
       "transform": [
         {"filter": {"field": "DELAY_TYPE", "equal": "ARRIVAL_DELAY"}},
@@ -221,7 +221,7 @@
           "lookup": "AIRLINE",
           "from": {
             "data": {
-              "url": "data/airlines.csv"
+              "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
             },
             "key": "IATA_CODE",
             "fields": ["IATA_CODE","AIRLINE"]
