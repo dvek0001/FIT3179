@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "height": 400,
+  "width": 600,
+  "background": "#F0F3FA",
+  "data": {
+    "url": "data/flights_heat.csv"
+  },
+  "encoding": {
+    "x": {
+      "field": "CANCELLATION_REASON",
+      "type": "nominal",
+      "axis": {"labelAngle": 0, "labelFontSize": 12, "title": "Cancellation Reason"}
+    },
+    "y": {
+      "field": "AIRLINE",
+      "type": "nominal"
+    }
+  },
+  "layer": [
+    {
+      "mark": "rect",
+      "encoding": {
+        "color": {
+          "field": "PERCENTAGE_CANCELLED",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "goldred"
+          }
+        }
+      }
+    },
+    {
+      "mark": "text",
+      "encoding": {
+        "text": {
+          "field": "PERCENTAGE_CANCELLED",
+          "type": "quantitative",
+          "format": ".3f"
+        },
+        "size": {"value": 18}
+      }
+    }
+  ]
+}
