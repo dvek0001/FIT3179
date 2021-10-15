@@ -1,41 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>FIT3179 Data visualisation 2</title>
   <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  
-  
+
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+
   <!-- CSS file -->
   <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
-  
+
+
 </head>
 <body>
+  <div class = page>
+    <h1>US FLIGHT DELAYS AND CANCELLATION</h1>
+    <div class="container">
+      <h2>Flights Delayed During Departure and Arrival</h2>
+      <p style="font-size: 22px;">
+        From the line chart below we see that flights are more likely to be delayed when Christmas is close.
+      </p>
+      <p style="font-style: italic; font-size: 15px;">
+        Select an interval in the line chart to filter out the dates in the maps.
+      </p>
+    </div>
+    <div id="vis1"></div>
+
+    <div class="container">
+      <div class="pure-g">
+        <div class="pure-u-1-2">
+          <p style="font-size: 22px;">Flights departing from ATL were delayed by at least 5 minutes on average. The most delayed flights during departure in 2015 were flights that were travelling to John F. Kennedy International Airport in New York, being delayed by 17 minutes on average.</p>
+        </div>
+        <div class="pure-u-1-2">
+          <p style="margin-left: 12px; font-size: 22px;">Flights arriving in ATL are usually on time. However, there are a some flights that actually arrived later than the scheduled arrival time and a few flights that arrived earlier than the scheduled time on average. </p>
+        </div>
+      </div>
+    </div>
+    
+
+    <p></p>
+
+    
+    <div class="container">
+      <h2>Most Delayed Airlines During Departure and Arrival</h2>
+      
+    </div>
+    <div id="vis2"></div>
+    
+    <div class="container">
+      <h2>Percentage of Flights Cancelled</h2>
+      
+    </div>
+    <div id="vis3"></div>
+
+  </div>
+
   
-  <h1>Week 10 Homework</h1>
-  <h3>Map from week 9 homework</h3>
-  
-  <div id="depart_flow_map"></div>
-
-  <h3>Interactive bump chart</h3>
-  <div id="bump"></div>
-
-
-
   <script type="text/javascript">
-
-    var vis1 = "js/departdelay.vg.json";
-    var vis3 = "js/bump.vg.json";
-    vegaEmbed('#depart_flow_map', vis1, {"actions": false}).then(function(result) {
+    var specVis1 = "js/map.vg.json";
+    var specVis2= "js/bump.vg.json";
+    var specVis3= "js/heatmap.vg.json";
+    var specVis4= "js/area.vg.json";
+  
+    vegaEmbed('#vis1', specVis1, {"actions": false}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 
-    vegaEmbed('#bump', vis3, {"actions": false}).then(function(result) {
+    vegaEmbed('#vis2', specVis2, {"actions": false}).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#vis3', specVis3, {"actions": false}).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#vis4', specVis4, {"actions": false}).then(function(result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
   </script>
-
-
 </body>
 </html>
