@@ -49,7 +49,7 @@
     },
     "tooltip": [
       {"field": "CANCELLATION_REASON", "type": "nominal", "title": "Cancellation Reason"},
-      {"field": "percentage", "type": "quantitative", "format": ".2%"}
+      {"field": "percentage", "type": "quantitative", "format": ".2%", "title": "% flights cancelled"}
     ]
   }
 }
