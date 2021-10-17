@@ -1,0 +1,382 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "#FFF9F9",
+  "hconcat": [
+    {
+      "height": 300,
+      "width": 510,
+      "title": {"text": "Most Delayed Airlines During Departure", "color": "#8B0000", "fontSize": 30},
+      "data": {
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
+      },
+      "transform": [
+        {"filter": {"field": "DELAY_TYPE", "equal": "DEPARTURE_DELAY"}},
+        {
+          "lookup": "AIRLINE",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
+            },
+            "key": "IATA_CODE",
+            "fields": ["IATA_CODE","AIRLINE"]
+          },
+          "as": ["IATA_CODE","AIRLINE"]
+        },
+        {
+          "calculate": "datum['AIRLINE'] + ' (' + datum['IATA_CODE'] + ')'",
+          "as": "AIRLINE"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "MONTH", 
+          "type": "ordinal", 
+          "scale": {
+              "domain" : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          },
+          "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "rank", 
+          "type": "ordinal", 
+          "sort": ["1","2","3","4","5","6","7","8","9","10","11"],
+          "title": null,
+          "axis": {
+            "grid": true,
+            "ticks": false,
+            "labelFontSize": 13
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+            "value": 1
+          },
+          "value": 0.4
+        },
+        "tooltip": [
+          {"field": "AIRLINE", "type": "nominal"},
+          {"field": "DELAY", "type": "quantitative", "format": ".2f", "title": "DEPARTURE DELAY"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "line", "point": true},
+          "encoding": {
+            "size": {
+              "condition": {
+                "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+                "value": 3
+              },
+              "value": 2
+            },
+            "color": {
+              "field": "AIRLINE", 
+              "type": "nominal",
+              "title": "Airline",
+              "scale": {
+                "range": [
+                  "#555555", "#7E0018", "#003C86", "#666666",
+                  "#777777", "#888888", "#CBA600", "#aaaaaa",
+                  "#9400E6", "#00735C", "#EF0096"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "mark": "point",
+          "encoding": {
+            "size": {
+              "condition": {
+                "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+                "value": 20
+              },
+              "value": 10
+            },
+            "color": {
+              "field": "AIRLINE", 
+              "type": "nominal",
+              "title": "Airline",
+              "scale": {
+                "range": [
+                  "#555555", "#7E0018", "#003C86", "#666666",
+                  "#777777", "#888888", "#CBA600", "#aaaaaa",
+                  "#9400E6", "#00735C", "#EF0096"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "bottom",
+            "dx": -21,
+            "dy": 5,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Jan'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 21,
+            "dy": 5,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Dec'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 7,
+            "dy": 0,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Nov' & datum['IATA_CODE'] == 'MQ'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 19,
+            "dy": 0,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Jun' & datum['IATA_CODE'] == 'US'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "height": 300,
+      "width": 510,
+      "title": {"text": "Most Delayed Airlines During Arrival", "color": "#FC7676", "fontSize": 30},
+      "data": {
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights_bump.csv"
+      },
+      "transform": [
+        {"filter": {"field": "DELAY_TYPE", "equal": "ARRIVAL_DELAY"}},
+        {
+          "lookup": "AIRLINE",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airlines.csv"
+            },
+            "key": "IATA_CODE",
+            "fields": ["IATA_CODE","AIRLINE"]
+          },
+          "as": ["IATA_CODE","AIRLINE"]
+        },
+        {
+          "calculate": "datum['AIRLINE'] + ' (' + datum['IATA_CODE'] + ')'",
+          "as": "AIRLINE"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "MONTH", 
+          "type": "ordinal", 
+          "scale": {
+              "domain" : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          },
+          "sort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "rank", 
+          "type": "ordinal", 
+          "sort": ["1","2","3","4","5","6","7","8","9","10","11"],
+          "title": null,
+          "axis": {
+            "grid": true,
+            "labels": false,
+            "ticks": false
+          }
+        },
+        "opacity": {
+          "condition": {
+            "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+            "value": 1
+          },
+          "value": 0.4
+        },
+        "tooltip": [
+          {"field": "AIRLINE", "type": "nominal"},
+          {"field": "DELAY", "type": "quantitative", "format": ".2f", "title": "ARRIVAL DELAY"}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "line", "point": true},
+          "encoding": {
+            "size": {
+              "condition": {
+                "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+                "value": 3
+              },
+              "value": 2
+            },
+            "color": {
+              "field": "AIRLINE", 
+              "type": "nominal",
+              "title": "Airline"
+            }
+          }
+        },
+        {
+          "mark": "point",
+          "encoding": {
+            "size": {
+              "condition": {
+                "test": "datum['IATA_CODE'] == 'MQ' || datum['IATA_CODE'] == 'NK' || datum['IATA_CODE'] == 'US' || datum['IATA_CODE'] == 'UA' || datum['IATA_CODE'] == 'AA' || datum['IATA_CODE'] == 'OO'",
+                "value": 20
+              },
+              "value": 10
+            },
+            "color": {
+              "field": "AIRLINE", 
+              "type": "nominal",
+              "title": "Airline"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "bottom",
+            "dx": -21,
+            "dy": 5,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Jan'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 21,
+            "dy": 5,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Dec'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 7,
+            "dy": 0,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Nov' & datum['IATA_CODE'] == 'MQ'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "baseline": "bottom",
+            "dx": 19,
+            "dy": 0,
+            "fontSize": 13
+          },
+          "encoding": {
+            "text": {"field": "IATA_CODE", "type": "nominal"},
+            "color": {"field": "AIRLINE", "type": "nominal"},
+            "opacity": {
+              "condition": {
+                "test": "datum['MONTH'] == 'Jun' & datum['IATA_CODE'] == 'US'",
+                "value": 1
+              },
+              "value": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

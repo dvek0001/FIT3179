@@ -1,0 +1,140 @@
+body {
+    background-color: darkgray;
+}
+
+.page {
+    width: 1300px;
+    background-color: #FFF9F9;
+    margin: auto;
+    padding: 50px;
+    padding-top: 35px;
+}
+
+.page2 {
+    width: 1300px;
+    background-color: #FFE0E0;
+    margin: auto;
+    padding: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.container {
+    margin: 45px;
+    padding: 0;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+h1 {
+    padding: 0;
+    text-align: center;
+    font-size: 55px;
+    border-style: double;
+    border-color: black;
+    border-width: 10px;
+    color: #BF0A30;
+    background-color: #FFE0E0;
+    padding-top: 5px;
+}
+
+h2 {
+    padding: 0;
+    text-align: center;
+    font-size: 40px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+    color: #B43757;
+    background-color: #FFE0E0;
+}
+
+.departdelay {
+    color: #8B0000;
+    font-weight: bold;
+}
+
+.arrivedelay {
+    color: #FC7676;
+    font-weight: bold;
+}
+
+.Air_system {
+    color: #2271B2;
+    font-weight: bold;
+}
+
+.Airline {
+    color: #F748A5;
+    font-weight: bold;
+}
+
+.Late_aircraft {
+    color: #359B73;
+    font-weight: bold;
+}
+
+.Security {
+    color: #9F0162;
+    font-weight: bold;
+}
+
+.Weather {
+    color: #D55E00;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
+p {
+    font-size: 25px;
+}
+
+.UA {
+    color: #EF0096;
+    font-weight: bold;
+}
+
+.MQ {
+    color: #003C86;
+    font-weight: bold;
+}
+
+.NK {
+    color: #9400E6;
+    font-weight: bold;
+}
+
+.US {
+    color: #00735C;
+    font-weight: bold;
+}
+
+.AA {
+    color: #7E0018;
+    font-weight: bold;
+}
+
+.OO {
+    color: #CBA600;
+    font-weight: bold;
+}
+
+.airline {
+    color: #DA00FD;
+    font-weight: bold;
+}
+
+.weather {
+    color: #00CBA7;
+    font-weight: bold;
+}
+
+.airsystem {
+    color: #009FFA;
+    font-weight: bold;
+}
+
+.cancel {
+    color: black;
+}

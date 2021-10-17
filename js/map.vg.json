@@ -1,0 +1,410 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "#FFF9F9",
+  "vconcat": [
+    {
+      "height": 250,
+      "width": 1130,
+      "title": {
+        "text": "Cause Of Delay",
+        "fontSize": 30
+      },
+      "data": {
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights.csv"
+      },
+      "transform": [
+        {"fold": ["Weather", "Air System", "Security", "Airline", "Late Aircraft"]},
+        {"calculate": "datum.value/2.75", "as": "value"}
+      ],
+      "mark": "area",
+      "encoding": {
+        "x": {
+          "field": "DATE",
+          "type": "temporal",
+          "scale": {"domain": {"param": "brush"}}
+        },
+        "y": {
+          "field": "value",
+          "type": "quantitative",
+          "aggregate": "average",
+          "title": "Average Delay"
+        },
+        "color": {
+          "field": "key",
+          "type": "nominal",
+          "title": "Delay Reason",
+          "scale": {
+            "range": [
+              "#2271B2", "#F748A5", "#359B73", "#9F0162", "#D55E00"
+            ]
+          },
+          "legend": {"orient": "none", "legendX": 400, "legendY": -12, "direction": "horizontal", "labelFontSize": 13}
+        },
+        "tooltip": [
+          {"field": "DATE", "type": "temporal"},
+          {"field": "key", "type": "nominal", "title": "Delay Reason"},
+          {"field": "value", "type": "quantitative", "title": "Delay", "aggregate": "average", "format": ".2f"}
+        ]
+      }
+    },
+    {
+      "width": 1130,
+      "height": 150,
+      "title": {
+        "text": "It is intuitively obvious that when flights depart late, they will arrive late to their destinations as well.",
+        "subtitle": "Select an interval in this line chart to filter out the dates for the area chart and maps.",
+        "fontWeight": "bold",
+        "fontSize": 25,
+        "subtitleFontSize": 15,
+        "subtitleFontStyle": "italic",
+        "subtitleFontWeight": "normal",
+        "subtitlePadding": 15
+      },
+      "data": {
+        "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights.csv"
+      },
+      "params": [
+        {
+          "name": "brush",
+          "select": {"type": "interval", "encodings": ["x"]}
+        }
+      ],
+      "transform": [
+        {
+          "bin": true,
+          "field": "DEPARTURE_DELAY",
+          "as": "Departure Delay"
+        },
+        {
+          "bin": true,
+          "field": "ARRIVAL_DELAY",
+          "as": "Arrival Delay"
+        },
+        {
+          "fold": ["Departure Delay", "Arrival Delay"]
+        }
+      ],
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "DATE", 
+          "type": "temporal"
+        },
+        "y": {
+          "field": "value", 
+          "type": "quantitative", 
+          "title": "Average Delay",
+          "aggregate": "average",
+          "axis": {"grid": false}
+        },
+        "color": {
+          "field": "key", 
+          "type": "nominal",
+          "title": null,
+          "scale": {"range": ["#FC7676", "#8B0000"]},
+          "legend": {
+            "orient": "none", 
+            "legendX": 10, 
+            "legendY": 10, 
+            "labelFontSize": 15
+          }
+        },
+        "opacity": {"value": 0.8},
+        "tooltip": [
+          {"field": "DATE", "type": "ordinal", "timeUnit": "monthdate"},
+          {"field": "key", "type": "nominal"},
+          {"field": "value", "type": "quantitative", "aggregate": "average", "format": ".3f"}
+        ]
+      }
+    },
+    {
+      "hconcat": [
+        {
+          "width": 555,
+          "height": 400,
+          "title": {"text": "Average Departure Delay", "color": "#8B0000", "fontSize": 30},
+          "layer": [
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/js/us.json",
+                "format": {
+                  "type": "topojson",
+                  "feature": "gz_2010_us_040_00_500k"
+                }
+              },
+              "projection": {
+                "type": "albersUsa"
+              },
+              "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "#FFF9F9"
+              }
+            },
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+              },
+              "projection": {
+                "type": "albersUsa"
+              },
+              "transform": [
+                {
+                  "filter": {"not": {"field": "IATA_CODE", "oneOf": ["SJU", "ECP", "UST", "STX", "STT", "PSE", "PPG", "PBG", "GUM", "BQN"]}}
+                }
+              ],
+              "layer": [
+                {
+                  "mark": {"type":"circle", "size": 15},
+                  "encoding": {
+                    "longitude": {
+                      "field": "LONGITUDE",
+                      "type": "quantitative"
+                    },
+                    "latitude": {
+                      "field": "LATITUDE",
+                      "type": "quantitative"
+                    },
+                    "color": {"value": "gray"},
+                    "tooltip": [
+                      {"field": "AIRPORT", "type": "nominal"},
+                      {"field": "CITY", "type": "nominal"},
+                      {"field": "STATE", "type": "nominal"}
+                    ]
+                  }
+                },
+                {
+                  "transform": [
+                    {"filter": {"field": "IATA_CODE", "equal": "SEA"}}
+                  ],
+                  "mark": {
+                    "type": "text",
+                    "dx": -15
+                  },
+                  "encoding": {
+                    "text": {"field": "IATA_CODE", "type": "nominal"},
+                    "longitude": {
+                      "field": "LONGITUDE",
+                      "type": "quantitative"
+                    },
+                    "latitude": {
+                      "field": "LATITUDE",
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights.csv"
+              },
+              "transform": [
+                {"filter": {"param": "brush"}},
+                {
+                  "lookup": "ORIGIN_AIRPORT",
+                  "from": {
+                    "data": {
+                      "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+                    },
+                    "key": "IATA_CODE",
+                    "fields": ["LATITUDE", "LONGITUDE"]
+                  },
+                  "as": ["ORIGIN_LATITUDE", "ORIGIN_LONGITUDE"]
+                },
+                {
+                  "lookup": "DESTINATION_AIRPORT",
+                  "from": {
+                    "data": {
+                      "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+                    },
+                    "key": "IATA_CODE",
+                    "fields": ["LATITUDE", "LONGITUDE"]
+                  },
+                  "as": ["DESTINATION_LATITUDE", "DESTINATION_LONGITUDE"]
+                }
+              ],
+              "projection": {
+                "type": "albersUsa"
+              },
+              "mark": {"type": "rule", "size": 2.5},
+              "encoding": {
+                "longitude": {
+                  "field": "ORIGIN_LONGITUDE",
+                  "type": "quantitative"
+                },
+                "latitude": {
+                  "field": "ORIGIN_LATITUDE",
+                  "type": "quantitative"
+                },
+                "latitude2": {"field": "DESTINATION_LATITUDE"},
+                "longitude2": {"field": "DESTINATION_LONGITUDE"},
+                "color": {
+                  "field": "DEPARTURE_DELAY", 
+                  "type": "quantitative",
+                  "aggregate": "average"
+                },
+                "tooltip": [
+                  {"field": "ORIGIN_AIRPORT", "type": "nominal", "title": "ORIGIN"},
+                  {"field": "DESTINATION_AIRPORT", "type": "nominal", "title": "DESTINATION"},
+                  {"field": "DEPARTURE_DELAY", "type": "quantitative", "title": "DEPARTURE DELAY", "aggregate": "average", "format": ".3f"}
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "width": 555,
+          "height": 400,
+          "title": {"text": "Average Arrival Delay", "color": "#FC7676", "fontSize": 30},
+          "layer": [
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/js/us.json",
+                "format": {
+                  "type": "topojson",
+                  "feature": "gz_2010_us_040_00_500k"
+                }
+              },
+              "projection": {
+                "type": "albersUsa"
+              },
+              "mark": {
+                "type": "geoshape",
+                "fill": "lightgray",
+                "stroke": "#FFF9F9"
+              }
+            },
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+              },
+              "projection": {
+                "type": "albersUsa"
+              },
+              "transform": [
+                {
+                  "filter": {"not": {"field": "IATA_CODE", "oneOf": ["SJU", "ECP", "UST", "STX", "STT", "PSE", "PPG", "PBG", "GUM", "BQN"]}}
+                }
+              ],
+              "layer": [
+                {
+                  "mark": {"type":"circle", "size": 15},
+                  "encoding": {
+                    "longitude": {
+                      "field": "LONGITUDE",
+                      "type": "quantitative"
+                    },
+                    "latitude": {
+                      "field": "LATITUDE",
+                      "type": "quantitative"
+                    },
+                    "color": {"value": "gray"},
+                    "tooltip": [
+                      {"field": "AIRPORT", "type": "nominal"},
+                      {"field": "CITY", "type": "nominal"},
+                      {"field": "STATE", "type": "nominal"}
+                    ]
+                  }
+                },
+                {
+                  "transform": [
+                    {"filter": {"field": "IATA_CODE", "equal": "SEA"}}
+                  ],
+                  "mark": {
+                    "type": "text",
+                    "dx": -15
+                  },
+                  "encoding": {
+                    "text": {"field": "IATA_CODE", "type": "nominal"},
+                    "longitude": {
+                      "field": "LONGITUDE",
+                      "type": "quantitative"
+                    },
+                    "latitude": {
+                      "field": "LATITUDE",
+                      "type": "quantitative"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "data": {
+                "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/flights.csv"
+              },
+              "transform": [
+                {"filter": {"param": "brush"}},
+                {
+                  "lookup": "ORIGIN_AIRPORT",
+                  "from": {
+                    "data": {
+                      "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+                    },
+                    "key": "IATA_CODE",
+                    "fields": ["LATITUDE", "LONGITUDE"]
+                  },
+                  "as": ["ORIGIN_LATITUDE", "ORIGIN_LONGITUDE"]
+                },
+                {
+                  "lookup": "DESTINATION_AIRPORT",
+                  "from": {
+                    "data": {
+                      "url": "https://raw.githubusercontent.com/dvek0001/FIT3179/main/data/airports.csv"
+                    },
+                    "key": "IATA_CODE",
+                    "fields": ["LATITUDE", "LONGITUDE"]
+                  },
+                  "as": ["DESTINATION_LATITUDE", "DESTINATION_LONGITUDE"]
+                }
+              ],
+              "projection": {
+                "type": "albersUsa"
+              },
+              "mark": {"type": "rule", "size": 2.5},
+              "encoding": {
+                "longitude": {
+                  "field": "ORIGIN_LONGITUDE",
+                  "type": "quantitative"
+                },
+                "latitude": {
+                  "field": "ORIGIN_LATITUDE",
+                  "type": "quantitative"
+                },
+                "latitude2": {"field": "DESTINATION_LATITUDE"},
+                "longitude2": {"field": "DESTINATION_LONGITUDE"},
+                "color": {
+                  "field": "ARRIVAL_DELAY", 
+                  "type": "quantitative", 
+                  "aggregate": "average",
+                  "scale": {
+                      "scheme": "reds"
+                  },
+                  "legend": {
+                    "title": "Average Delay (minutes)", 
+                    "orient": "none",
+                    "legendX": 429,
+                    "legendY": 404,
+                    "direction": "horizontal",
+                    "gradientLength": 300
+                  }
+                },
+                "tooltip": [
+                  {"field": "ORIGIN_AIRPORT", "type": "nominal", "title": "ORIGIN"},
+                  {"field": "DESTINATION_AIRPORT", "type": "nominal", "title": "DESTINATION"},
+                  {"field": "ARRIVAL_DELAY", "type": "quantitative", "title": "ARRIVAL DELAY", "aggregate": "average", "format": ".3f"}
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+
+
