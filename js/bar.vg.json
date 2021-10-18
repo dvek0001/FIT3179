@@ -26,7 +26,8 @@
   "encoding": {
     "y": {
       "field": "AIRLINE",
-      "type": "nominal"
+      "type": "nominal",
+      "sort": "-x"
     },
     "x": {
       "field": "percentage",
@@ -41,7 +42,7 @@
       "legend": {
         "orient": "none",
         "legendX": 1015,
-        "legendY": 5
+        "legendY": 225
       },
       "scale": {
         "range": ["#DA00FD", "#009FFA", "#00CBA7"]
